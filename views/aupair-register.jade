@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  form(method="post" action="/test-page")
+    fieldset
+      label(for="firstname") First Name:
+      input(id="firstname" name="firstname" placeholder="First Name" autofocus required)
+      label(for="email1") Email1:
+      input(type="email" id="email1" name="email1" placeholder="Email address" required)
+      input(type="date")
+      input(type="submit" value="Register")
+  
