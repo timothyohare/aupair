@@ -1,0 +1,66 @@
+/* From http://webdesign.tutsplus.com/tutorials/bring-your-forms-up-to-date-with-css3-and-html5-validation--webdesign-4738 */
+
+body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif;}
+
+.register_form h2, .register_form label {font-family:"Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif;}
+
+.register_form ul {
+    width:750px;
+    list-style-type:none;
+    list-style-position:outside;
+    margin:0px;
+    padding:0px;
+}
+.register_form li{
+    padding:12px;
+    position:relative;
+}
+
+/* form header */
+.register_form h2 {
+    margin:0;
+    display: inline;
+}
+
+/* style input elements */
+.register_form label {
+    width:150px;
+    margin-top: 3px;
+    display:inline-block;
+    float:left;
+    padding:3px;
+}
+.register_form input {
+    /*height:20px;*/
+    width:220px;
+    padding:5px 8px;
+}
+
+
+.register_form button {
+    /*margin-left:156px;*/
+}
+
+/* extra visual styles */
+.register_form input, .register_form textarea {
+    border:1px solid #aaa;
+    box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
+    border-radius:2px;
+}
+
+/* Button Style */
+button.submit {
+    background-color: #68b12f;
+    background: linear-gradient(top, #68b12f, #50911e);
+    border: 1px solid #509111;
+    border-bottom: 1px solid #5b992b;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 #9fd574;
+    color: white;
+    font-weight: bold;
+    padding: 6px 20px;
+    text-align: center;
+    text-shadow: 0 -1px 0 #396715;
+}
+
+

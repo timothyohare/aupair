@@ -51,6 +51,7 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
+    app.locals.pretty = true;
 }
 
 // production error handler
@@ -64,3 +65,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+//To run the application: DEBUG=aupair ./bin/www

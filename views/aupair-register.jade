@@ -1,14 +1,64 @@
-extends layout
+//- Address print out works in jsbin
+//- TODO for assignment
+//-  - Country list <datalist>?
+//-  - Update address details with location
+//-  - fix CSS formating of fields - look at examples from course?
+//-  - add a place to upload a picture
+//-  - remove references to au pair
 
-block content
-  h1= title
-  p Welcome to #{title}
-  form(method="post" action="/test-page")
-    fieldset
-      label(for="firstname") First Name:
-      input(id="firstname" name="firstname" placeholder="First Name" autofocus required)
-      label(for="email1") Email1:
-      input(type="email" id="email1" name="email1" placeholder="Email address" required)
-      input(type="date")
-      input(type="submit" value="Register")
-  
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        link(rel='stylesheet', href='/stylesheets/formstyle.css')
+        script(src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false")
+    body
+      h1= title
+      p Welcome to #{title}
+      //- http://webdesign.tutsplus.com/tutorials/bring-your-forms-up-to-date-with-css3-and-html5-validation--webdesign-4738
+      form(method="post" action="/test-page" class="register_form" id="register_form")
+        fieldset
+          ul
+            li
+              label(for="firstname") Name:
+              input(type="text" id="firstname" autofocus required placeholder="First name")
+              //- label(for="lastname") Last Name:
+              input(type="text" id="lastname" required placeholder="Last name")
+            li
+              label(for="email") Email:
+              input(type="email" id="email" placeholder="example@example.com" size="30" maxlength="127" required)
+            li
+              label(for="phone") Phone Number:
+              input(type="tel" id="phone" size="30" maxlength="127" required)
+
+            // Address  
+            li
+                p(id="reverseGeolocation") Location
+                div(id="mapholder")
+                p(id="myAddress") My address
+
+            li
+              label(for="address_street") Number and street:
+              input(type="text" id="address_street" size="30" maxlength="255" required)
+              label(for="address_city") City:
+              input(type="text" id="address_city" size="30" maxlength="127" required)
+              // TODO - drop down list
+              label(for="address_country") Country:
+              input(type="text" id="address_country" size="30" maxlength="127" required)
+              label(for="address_postcode") Zip/Postcode:
+              input(type="text" id="address_postcode" size="30" maxlength="127" required)
+
+            // Password
+            li
+              label(for="password1") Password:
+              input(type="password" id="password1" size="30" maxlength="127" required oninput="checkPasswords()")
+              label(for="password2") Password Verification:
+              input(type="password" id="password2" size="30" maxlength="127" placeholder="Retype password" required oninput="checkPasswords()")
+            li
+              input(type="button" value="Locate Me" onclick="getLocation()")
+              input(type="submit" value="Register")
+
+      
+      script(src="/javascripts/password-validate.js")
+      
+      

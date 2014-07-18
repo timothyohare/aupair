@@ -8,12 +8,12 @@ router.get('/', function(req, res) {
 
 /* GET home page. */
 router.get('/aupairs', function(req, res) {
-  res.render('aupairs', { title: 'You wish to be an Au-pair' });
+  res.render('aupairs', { title: 'You wish to be an Au pair' });
 });
 
 // au-pair register
 router.get('/aupairs/register', function(req, res) {
-  res.render('aupair-register', { title: 'Au-pair account setup' });
+  res.render('aupair-register', { title: 'Au pair account setup' });
 });
 
 // au-pairs searching for a family
