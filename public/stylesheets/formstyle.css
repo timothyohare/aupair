@@ -6,7 +6,7 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 
 .register_form ul {
     width:750px;
-    list-style-type:none;
+        list-style-type:none;
     list-style-position:outside;
     margin:0px;
     padding:0px;
@@ -37,9 +37,7 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 }
 
 
-.register_form button {
-    /*margin-left:156px;*/
-}
+
 
 /* extra visual styles */
 .register_form input, .register_form textarea {
@@ -49,7 +47,22 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 }
 
 /* Button Style */
-button.submit {
+.register_form input button {
+    background-color: #68b12f;
+    background: linear-gradient(top, #68b12f, #50911e);
+    border: 1px solid #509111;
+    border-bottom: 1px solid #5b992b;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 #9fd574;
+    color: white;
+    font-weight: bold;
+    padding: 6px 20px;
+    text-align: center;
+    text-shadow: 0 -1px 0 #396715;
+}
+
+/* Button Style */
+.form_button {
     background-color: #68b12f;
     background: linear-gradient(top, #68b12f, #50911e);
     border: 1px solid #509111;
@@ -64,3 +77,26 @@ button.submit {
 }
 
 
+    .ui-autocomplete {
+      padding: 0;
+      list-style: none;
+      background-color: #fff;
+      width: 218px;
+      border: 1px solid #B0BECA;
+      max-height: 350px;
+      overflow-y: scroll;
+    }
+    .ui-autocomplete .ui-menu-item a {
+      border-top: 1px solid #B0BECA;
+      display: block;
+      padding: 4px 6px;
+      color: #353D44;
+      cursor: pointer;
+    }
+    .ui-autocomplete .ui-menu-item:first-child a {
+      border-top: none;
+    }
+    .ui-autocomplete .ui-menu-item a.ui-state-hover {
+      background-color: #D5E5F4;
+      color: #161A1C;
+    }

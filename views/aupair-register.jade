@@ -11,6 +11,13 @@ html
     head
         meta(charset="utf-8")
         link(rel='stylesheet', href='/stylesheets/formstyle.css')
+        //- script(src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
+        
+        script(src="/javascripts/jquery.js")
+        script(src="/javascripts/jquery-ui-autocomplete.js")
+        script(src="/javascripts/jquery.select-to-autocomplete.min.js")
+        script.
+
         script(src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false")
     body
       h1= title
@@ -28,23 +35,284 @@ html
               label(for="email") Email:
               input(type="email" id="email" placeholder="example@example.com" size="30" maxlength="127" required)
             li
-              label(for="phone") Phone Number:
-              input(type="tel" id="phone" size="30" maxlength="127" required)
+              label(for="phoneNumber") Phone Number:
+              input(type="tel" id="phoneNumber" size="30" maxlength="127" required)
 
             // Address  
             li
-                p(id="reverseGeolocation") Location
+                p(id="reverseGeolocation")
                 div(id="mapholder")
-                p(id="myAddress") My address
+                p(id="myAddress") Prefill form with address details
+                input(type="button" class="form_button" value="Locate Me" onclick="getLocation()")
 
             li
               label(for="address_street") Number and street:
               input(type="text" id="address_street" size="30" maxlength="255" required)
+            li
               label(for="address_city") City:
               input(type="text" id="address_city" size="30" maxlength="127" required)
-              // TODO - drop down list
-              label(for="address_country") Country:
-              input(type="text" id="address_country" size="30" maxlength="127" required)
+            li
+              //- TODO - drop down list
+              //- label(for="address_country") Country:
+              //- input(type="text" id="address_country" size="30" maxlength="127" required)
+
+              // Country selection from http://www.smashingmagazine.com/2011/11/10/redesigning-the-country-selector/
+              label(class="label" for="country-selector") Type your country:
+    
+              select(class="turn-to-ac" placeholder="Type your country" name="Country" id="country-selector" autocorrect="on" autocomplete="on")
+                option(value="" selected="selected") Select Country
+                option(value="Afghanistan" data-alternative-spellings="AF")  Afghanistan
+                option(value="Åland Islands" data-alternative-spellings="AX Aaland Aland" data-relevancy-booster="0.5") Åland Islands
+                option(value="Albania" data-alternative-spellings="AL") Albania
+                option(value="Algeria" data-alternative-spellings="DZ") Algeria
+                option(value="American Samoa" data-alternative-spellings="AS" data-relevancy-booster="0.5") American Samoa
+                option(value="Andorra" data-alternative-spellings="AD" data-relevancy-booster="0.5") Andorra
+                option(value="Angola" data-alternative-spellings="AO") Angola
+                option(value="Anguilla" data-alternative-spellings="AI" data-relevancy-booster="0.5") Anguilla
+                option(value="Antarctica" data-alternative-spellings="AQ" data-relevancy-booster="0.5") Antarctica
+                option(value="Antigua And Barbuda" data-alternative-spellings="AG" data-relevancy-booster="0.5") Antigua And Barbuda
+                option(value="Argentina" data-alternative-spellings="AR") Argentina
+                option(value="Armenia" data-alternative-spellings="AM") Armenia
+                option(value="Aruba" data-alternative-spellings="AW" data-relevancy-booster="0.5") Aruba
+                option(value="Australia" data-alternative-spellings="AU" data-relevancy-booster="1.5") Australia
+                option(value="Austria" data-alternative-spellings="AT Österreich Osterreich Oesterreich ") Austria
+                option(value="Azerbaijan" data-alternative-spellings="AZ") Azerbaijan
+                option(value="Bahamas" data-alternative-spellings="BS") Bahamas
+                option(value="Bahrain" data-alternative-spellings="BH") Bahrain
+                option(value="Bangladesh" data-alternative-spellings="BD" data-relevancy-booster="2") Bangladesh
+                option(value="Barbados" data-alternative-spellings="BB") Barbados
+                option(value="Belarus" data-alternative-spellings="BY") Belarus
+                option(value="Belgium" data-alternative-spellings="BE België Belgie Belgien Belgique" data-relevancy-booster="1.5") Belgium
+                option(value="Belize" data-alternative-spellings="BZ") Belize
+                option(value="Benin" data-alternative-spellings="BJ") Benin
+                option(value="Bermuda" data-alternative-spellings="BM" data-relevancy-booster="0.5") Bermuda
+                option(value="Bhutan" data-alternative-spellings="BT") Bhutan
+                option(value="Bolivia" data-alternative-spellings="BO") Bolivia
+                option(value="Bonaire, Sint Eustatius and Saba" data-alternative-spellings="BQ") Bonaire, Sint Eustatius and Saba
+                option(value="Bosnia and Herzegovina" data-alternative-spellings="BA") Bosnia and Herzegovina
+                option(value="Botswana" data-alternative-spellings="BW") Botswana
+                option(value="Bouvet Island" data-alternative-spellings="BV") Bouvet Island
+                option(value="Brazil" data-alternative-spellings="BR Brasil" data-relevancy-booster="2") Brazil
+                option(value="British Indian Ocean Territory" data-alternative-spellings="IO") British Indian Ocean Territory
+                option(value="Brunei Darussalam" data-alternative-spellings="BN") Brunei Darussalam
+                option(value="Bulgaria" data-alternative-spellings="BG") Bulgaria
+                option(value="Burkina Faso" data-alternative-spellings="BF") Burkina Faso
+                option(value="Burundi" data-alternative-spellings="BI") Burundi
+                option(value="Cambodia" data-alternative-spellings="KH") Cambodia
+                option(value="Cameroon" data-alternative-spellings="CM") Cameroon
+                option(value="Canada" data-alternative-spellings="CA" data-relevancy-booster="2") Canada
+                option(value="Cape Verde" data-alternative-spellings="CV") Cape Verde
+                option(value="Cayman Islands" data-alternative-spellings="KY" data-relevancy-booster="0.5") Cayman Islands
+                option(value="Central African Republic" data-alternative-spellings="CF") Central African Republic
+                option(value="Chad" data-alternative-spellings="TD") Chad
+                option(value="Chile" data-alternative-spellings="CL") Chile
+                option(value="China" data-relevancy-booster="3.5" data-alternative-spellings="CN Zhongguo Zhonghua Peoples Republic") China
+                option(value="Christmas Island" data-alternative-spellings="CX" data-relevancy-booster="0.5") Christmas Island
+                option(value="Cocos (Keeling)  Islands" data-alternative-spellings="CC" data-relevancy-booster="0.5") Cocos (Keeling)  Islands
+                option(value="Colombia" data-alternative-spellings="CO") Colombia
+                option(value="Comoros" data-alternative-spellings="KM") Comoros
+                option(value="Congo" data-alternative-spellings="CG") Congo
+                option(value="Congo, the Democratic Republic of the" data-alternative-spellings="CD") Congo, the Democratic Republic of the
+                option(value="Cook Islands" data-alternative-spellings="CK" data-relevancy-booster="0.5") Cook Islands
+                option(value="Costa Rica" data-alternative-spellings="CR") Costa Rica
+                option(value="Côte d'Ivoire" data-alternative-spellings="CI Cote dIvoire") Côte d'Ivoire
+                option(value="Croatia" data-alternative-spellings="HR Hrvatska") Croatia
+                option(value="Cuba" data-alternative-spellings="CU") Cuba
+                option(value="Curaçao" data-alternative-spellings="CW Curacao") Curaçao
+                option(value="Cyprus" data-alternative-spellings="CY") Cyprus
+                option(value="Czech Republic" data-alternative-spellings="CZ Česká Ceska") Czech Republic
+                option(value="Denmark" data-alternative-spellings="DK Danmark" data-relevancy-booster="1.5") Denmark
+                option(value="Djibouti" data-alternative-spellings="DJ") Djibouti
+                option(value="Dominica" data-alternative-spellings="DM" data-relevancy-booster="0.5") Dominica
+                option(value="Dominican Republic" data-alternative-spellings="DO") Dominican Republic
+                option(value="Ecuador" data-alternative-spellings="EC") Ecuador
+                option(value="Egypt" data-alternative-spellings="EG" data-relevancy-booster="1.5") Egypt
+                option(value="El Salvador" data-alternative-spellings="SV") El Salvador
+                option(value="Equatorial Guinea" data-alternative-spellings="GQ") Equatorial Guinea
+                option(value="Eritrea" data-alternative-spellings="ER") Eritrea
+                option(value="Estonia" data-alternative-spellings="EE Eesti") Estonia
+                option(value="Ethiopia" data-alternative-spellings="ET") Ethiopia
+                option(value="Falkland Islands (Malvinas) " data-alternative-spellings="FK" data-relevancy-booster="0.5") Falkland Islands (Malvinas) 
+                option(value="Faroe Islands" data-alternative-spellings="FO Føroyar Færøerne" data-relevancy-booster="0.5") Faroe Islands
+                option(value="Fiji" data-alternative-spellings="FJ") Fiji
+                option(value="Finland" data-alternative-spellings="FI Suomi") Finland
+                option(value="France" data-alternative-spellings="FR République française" data-relevancy-booster="2.5") France
+                option(value="French Guiana" data-alternative-spellings="GF") French Guiana
+                option(value="French Polynesia" data-alternative-spellings="PF") French Polynesia
+                option(value="French Southern Territories" data-alternative-spellings="TF") French Southern Territories
+                option(value="Gabon" data-alternative-spellings="GA") Gabon
+                option(value="Gambia" data-alternative-spellings="GM") Gambia
+                option(value="Georgia" data-alternative-spellings="GE") Georgia
+                option(value="Germany" data-alternative-spellings="DE Bundesrepublik Deutschland" data-relevancy-booster="3") Germany
+                option(value="Ghana" data-alternative-spellings="GH") Ghana
+                option(value="Gibraltar" data-alternative-spellings="GI" data-relevancy-booster="0.5") Gibraltar
+                option(value="Greece" data-alternative-spellings="GR" data-relevancy-booster="1.5") Greece
+                option(value="Greenland" data-alternative-spellings="GL grønland" data-relevancy-booster="0.5") Greenland
+                option(value="Grenada" data-alternative-spellings="GD") Grenada
+                option(value="Guadeloupe" data-alternative-spellings="GP") Guadeloupe
+                option(value="Guam" data-alternative-spellings="GU") Guam
+                option(value="Guatemala" data-alternative-spellings="GT") Guatemala
+                option(value="Guernsey" data-alternative-spellings="GG" data-relevancy-booster="0.5") Guernsey
+                option(value="Guinea" data-alternative-spellings="GN") Guinea
+                option(value="Guinea-Bissau" data-alternative-spellings="GW") Guinea-Bissau
+                option(value="Guyana" data-alternative-spellings="GY") Guyana
+                option(value="Haiti" data-alternative-spellings="HT") Haiti
+                option(value="Heard Island and McDonald Islands" data-alternative-spellings="HM") Heard Island and McDonald Islands
+                option(value="Holy See (Vatican City State) " data-alternative-spellings="VA" data-relevancy-booster="0.5") Holy See (Vatican City State) 
+                option(value="Honduras" data-alternative-spellings="HN") Honduras
+                option(value="Hong Kong" data-alternative-spellings="HK") Hong Kong
+                option(value="Hungary" data-alternative-spellings="HU") Hungary
+                option(value="Iceland" data-alternative-spellings="IS Island") Iceland
+                option(value="India" data-alternative-spellings="IN" data-relevancy-booster="3") India
+                option(value="Indonesia" data-alternative-spellings="ID" data-relevancy-booster="2") Indonesia
+                option(value="Iran, Islamic Republic of" data-alternative-spellings="IR") Iran, Islamic Republic of
+                option(value="Iraq" data-alternative-spellings="IQ") Iraq
+                option(value="Ireland" data-alternative-spellings="IE Éire" data-relevancy-booster="1.2") Ireland
+                option(value="Isle of Man" data-alternative-spellings="IM" data-relevancy-booster="0.5") Isle of Man
+                option(value="Israel" data-alternative-spellings="IL") Israel
+                option(value="Italy" data-alternative-spellings="IT Italia" data-relevancy-booster="2") Italy
+                option(value="Jamaica" data-alternative-spellings="JM") Jamaica
+                option(value="Japan" data-alternative-spellings="JP Nippon Nihon" data-relevancy-booster="2.5") Japan
+                option(value="Jersey" data-alternative-spellings="JE" data-relevancy-booster="0.5") Jersey
+                option(value="Jordan" data-alternative-spellings="JO") Jordan
+                option(value="Kazakhstan" data-alternative-spellings="KZ") Kazakhstan
+                option(value="Kenya" data-alternative-spellings="KE") Kenya
+                option(value="Kiribati" data-alternative-spellings="KI") Kiribati
+                option(value="Korea, Democratic People's Republic of" data-alternative-spellings="KP North Korea") Korea, Democratic People's Republic of
+                option(value="Korea, Republic of" data-alternative-spellings="KR South Korea" data-relevancy-booster="1.5") Korea, Republic of
+                option(value="Kuwait" data-alternative-spellings="KW") Kuwait
+                option(value="Kyrgyzstan" data-alternative-spellings="KG") Kyrgyzstan
+                option(value="Lao People's Democratic Republic" data-alternative-spellings="LA") Lao People's Democratic Republic
+                option(value="Latvia" data-alternative-spellings="LV") Latvia
+                option(value="Lebanon" data-alternative-spellings="LB") Lebanon
+                option(value="Lesotho" data-alternative-spellings="LS") Lesotho
+                option(value="Liberia" data-alternative-spellings="LR") Liberia
+                option(value="Libyan Arab Jamahiriya" data-alternative-spellings="LY") Libyan Arab Jamahiriya
+                option(value="Liechtenstein" data-alternative-spellings="LI") Liechtenstein
+                option(value="Lithuania" data-alternative-spellings="LT") Lithuania
+                option(value="Luxembourg" data-alternative-spellings="LU") Luxembourg
+                option(value="Macao" data-alternative-spellings="MO") Macao
+                option(value="Macedonia, The Former Yugoslav Republic Of" data-alternative-spellings="MK") Macedonia, The Former Yugoslav Republic Of
+                option(value="Madagascar" data-alternative-spellings="MG") Madagascar
+                option(value="Malawi" data-alternative-spellings="MW") Malawi
+                option(value="Malaysia" data-alternative-spellings="MY") Malaysia
+                option(value="Maldives" data-alternative-spellings="MV") Maldives
+                option(value="Mali" data-alternative-spellings="ML") Mali
+                option(value="Malta" data-alternative-spellings="MT") Malta
+                option(value="Marshall Islands" data-alternative-spellings="MH" data-relevancy-booster="0.5") Marshall Islands
+                option(value="Martinique" data-alternative-spellings="MQ") Martinique
+                option(value="Mauritania" data-alternative-spellings="MR") Mauritania
+                option(value="Mauritius" data-alternative-spellings="MU") Mauritius
+                option(value="Mayotte" data-alternative-spellings="YT") Mayotte
+                option(value="Mexico" data-alternative-spellings="MX Mexicanos" data-relevancy-booster="1.5") Mexico
+                option(value="Micronesia, Federated States of" data-alternative-spellings="FM") Micronesia, Federated States of
+                option(value="Moldova, Republic of" data-alternative-spellings="MD") Moldova, Republic of
+                option(value="Monaco" data-alternative-spellings="MC") Monaco
+                option(value="Mongolia" data-alternative-spellings="MN") Mongolia
+                option(value="Montenegro" data-alternative-spellings="ME") Montenegro
+                option(value="Montserrat" data-alternative-spellings="MS" data-relevancy-booster="0.5") Montserrat
+                option(value="Morocco" data-alternative-spellings="MA") Morocco
+                option(value="Mozambique" data-alternative-spellings="MZ") Mozambique
+                option(value="Myanmar" data-alternative-spellings="MM") Myanmar
+                option(value="Namibia" data-alternative-spellings="NA") Namibia
+                option(value="Nauru" data-alternative-spellings="NR" data-relevancy-booster="0.5") Nauru
+                option(value="Nepal" data-alternative-spellings="NP") Nepal
+                option(value="Netherlands" data-alternative-spellings="NL Holland Nederland" data-relevancy-booster="1.5") Netherlands
+                option(value="New Caledonia" data-alternative-spellings="NC" data-relevancy-booster="0.5") New Caledonia
+                option(value="New Zealand" data-alternative-spellings="NZ") New Zealand
+                option(value="Nicaragua" data-alternative-spellings="NI") Nicaragua
+                option(value="Niger" data-alternative-spellings="NE") Niger
+                option(value="Nigeria" data-alternative-spellings="NG" data-relevancy-booster="1.5") Nigeria
+                option(value="Niue" data-alternative-spellings="NU" data-relevancy-booster="0.5") Niue
+                option(value="Norfolk Island" data-alternative-spellings="NF" data-relevancy-booster="0.5") Norfolk Island
+                option(value="Northern Mariana Islands" data-alternative-spellings="MP" data-relevancy-booster="0.5") Northern Mariana Islands
+                option(value="Norway" data-alternative-spellings="NO Norge Noreg" data-relevancy-booster="1.5") Norway
+                option(value="Oman" data-alternative-spellings="OM") Oman
+                option(value="Pakistan" data-alternative-spellings="PK" data-relevancy-booster="2") Pakistan
+                option(value="Palau" data-alternative-spellings="PW" data-relevancy-booster="0.5") Palau
+                option(value="Palestinian Territory, Occupied" data-alternative-spellings="PS") Palestinian Territory, Occupied
+                option(value="Panama" data-alternative-spellings="PA") Panama
+                option(value="Papua New Guinea" data-alternative-spellings="PG") Papua New Guinea
+                option(value="Paraguay" data-alternative-spellings="PY") Paraguay
+                option(value="Peru" data-alternative-spellings="PE") Peru
+                option(value="Philippines" data-alternative-spellings="PH" data-relevancy-booster="1.5") Philippines
+                option(value="Pitcairn" data-alternative-spellings="PN" data-relevancy-booster="0.5") Pitcairn
+                option(value="Poland" data-alternative-spellings="PL" data-relevancy-booster="1.25") Poland
+                option(value="Portugal" data-alternative-spellings="PT" data-relevancy-booster="1.5") Portugal
+                option(value="Puerto Rico" data-alternative-spellings="PR") Puerto Rico
+                option(value="Qatar" data-alternative-spellings="QA") Qatar
+                option(value="Réunion" data-alternative-spellings="RE Reunion") Réunion
+                option(value="Romania" data-alternative-spellings="RO") Romania
+                option(value="Russian Federation" data-alternative-spellings="RU Russia Rossiya" data-relevancy-booster="2.5") Russian Federation
+                option(value="Rwanda" data-alternative-spellings="RW") Rwanda
+                option(value="Saint Barthélemy" data-alternative-spellings="BL" data-relevancy-booster="0.5") Saint Barthélemy
+                option(value="Saint Helena" data-alternative-spellings="SH" data-relevancy-booster="0.5") Saint Helena
+                option(value="Saint Kitts and Nevis" data-alternative-spellings="KN" data-relevancy-booster="0.5") Saint Kitts and Nevis
+                option(value="Saint Lucia" data-alternative-spellings="LC" data-relevancy-booster="0.5") Saint Lucia
+                option(value="Saint Martin (French Part) " data-alternative-spellings="MF" data-relevancy-booster="0.5") Saint Martin (French Part) 
+                option(value="Saint Pierre and Miquelon" data-alternative-spellings="PM" data-relevancy-booster="0.5") Saint Pierre and Miquelon
+                option(value="Saint Vincent and the Grenadines" data-alternative-spellings="VC" data-relevancy-booster="0.5") Saint Vincent and the Grenadines
+                option(value="Samoa" data-alternative-spellings="WS") Samoa
+                option(value="San Marino" data-alternative-spellings="SM") San Marino
+                option(value="Sao Tome and Principe" data-alternative-spellings="ST") Sao Tome and Principe
+                option(value="Saudi Arabia" data-alternative-spellings="SA") Saudi Arabia
+                option(value="Senegal" data-alternative-spellings="SN") Senegal
+                option(value="Serbia" data-alternative-spellings="RS") Serbia
+                option(value="Seychelles" data-alternative-spellings="SC" data-relevancy-booster="0.5") Seychelles
+                option(value="Sierra Leone" data-alternative-spellings="SL") Sierra Leone
+                option(value="Singapore" data-alternative-spellings="SG") Singapore
+                option(value="Sint Maarten (Dutch Part) " data-alternative-spellings="SX") Sint Maarten (Dutch Part) 
+                option(value="Slovakia" data-alternative-spellings="SK") Slovakia
+                option(value="Slovenia" data-alternative-spellings="SI") Slovenia
+                option(value="Solomon Islands" data-alternative-spellings="SB") Solomon Islands
+                option(value="Somalia" data-alternative-spellings="SO") Somalia
+                option(value="South Africa" data-alternative-spellings="ZA") South Africa
+                option(value="South Georgia and the South Sandwich Islands" data-alternative-spellings="GS") South Georgia and the South Sandwich Islands
+                option(value="South Sudan" data-alternative-spellings="SS") South Sudan
+                option(value="Spain" data-alternative-spellings="ES España" data-relevancy-booster="2") Spain
+                option(value="Sri Lanka" data-alternative-spellings="LK") Sri Lanka
+                option(value="Sudan" data-alternative-spellings="SD") Sudan
+                option(value="Suriname" data-alternative-spellings="SR") Suriname
+                option(value="Svalbard and Jan Mayen" data-alternative-spellings="SJ" data-relevancy-booster="0.5") Svalbard and Jan Mayen
+                option(value="Swaziland" data-alternative-spellings="SZ") Swaziland
+                option(value="Sweden" data-alternative-spellings="SE Sverige" data-relevancy-booster="1.5") Sweden
+                option(value="Switzerland" data-alternative-spellings="CH Swiss Confederation Schweiz Suisse Svizzera Svizra" data-relevancy-booster="1.5") Switzerland
+                option(value="Syrian Arab Republic" data-alternative-spellings="SY Syria") Syrian Arab Republic
+                option(value="Taiwan, Province of China" data-alternative-spellings="TW") Taiwan, Province of China
+                option(value="Tajikistan" data-alternative-spellings="TJ") Tajikistan
+                option(value="Tanzania, United Republic of" data-alternative-spellings="TZ") Tanzania, United Republic of
+                option(value="Thailand" data-alternative-spellings="TH") Thailand
+                option(value="Timor-Leste" data-alternative-spellings="TL") Timor-Leste
+                option(value="Togo" data-alternative-spellings="TG") Togo
+                option(value="Tokelau" data-alternative-spellings="TK" data-relevancy-booster="0.5") Tokelau
+                option(value="Tonga" data-alternative-spellings="TO") Tonga
+                option(value="Trinidad and Tobago" data-alternative-spellings="TT") Trinidad and Tobago
+                option(value="Tunisia" data-alternative-spellings="TN") Tunisia
+                option(value="Turkey" data-alternative-spellings="TR Türkiye Turkiye") Turkey
+                option(value="Turkmenistan" data-alternative-spellings="TM") Turkmenistan
+                option(value="Turks and Caicos Islands" data-alternative-spellings="TC" data-relevancy-booster="0.5") Turks and Caicos Islands
+                option(value="Tuvalu" data-alternative-spellings="TV" data-relevancy-booster="0.5") Tuvalu
+                option(value="Uganda" data-alternative-spellings="UG") Uganda
+                option(value="Ukraine" data-alternative-spellings="UA Ukrayina") Ukraine
+                option(value="United Arab Emirates" data-alternative-spellings="AE UAE Emirates") United Arab Emirates
+                option(value="United Kingdom" data-alternative-spellings="GB Great Britain England UK Wales Scotland Northern Ireland" data-relevancy-booster="2.5") United Kingdom
+                option(value="United States" data-relevancy-booster="3.5" data-alternative-spellings="US USA United States of America") United States
+                option(value="United States Minor Outlying Islands" data-alternative-spellings="UM") United States Minor Outlying Islands
+                option(value="Uruguay" data-alternative-spellings="UY") Uruguay
+                option(value="Uzbekistan" data-alternative-spellings="UZ") Uzbekistan
+                option(value="Vanuatu" data-alternative-spellings="VU") Vanuatu
+                option(value="Venezuela" data-alternative-spellings="VE") Venezuela
+                option(value="Vietnam" data-alternative-spellings="VN" data-relevancy-booster="1.5") Vietnam
+                option(value="Virgin Islands, British" data-alternative-spellings="VG" data-relevancy-booster="0.5") Virgin Islands, British
+                option(value="Virgin Islands, U.S." data-alternative-spellings="VI" data-relevancy-booster="0.5") Virgin Islands, U.S.
+                option(value="Wallis and Futuna" data-alternative-spellings="WF" data-relevancy-booster="0.5") Wallis and Futuna
+                option(value="Western Sahara" data-alternative-spellings="EH") Western Sahara
+                option(value="Yemen" data-alternative-spellings="YE") Yemen
+                option(value="Zambia" data-alternative-spellings="ZM") Zambia
+                option(value="Zimbabwe" data-alternative-spellings="ZW") Zimbabwe
+ 
+
+            li  
               label(for="address_postcode") Zip/Postcode:
               input(type="text" id="address_postcode" size="30" maxlength="127" required)
 
@@ -52,13 +320,24 @@ html
             li
               label(for="password1") Password:
               input(type="password" id="password1" size="30" maxlength="127" required oninput="checkPasswords()")
-              label(for="password2") Password Verification:
-              input(type="password" id="password2" size="30" maxlength="127" placeholder="Retype password" required oninput="checkPasswords()")
+              //label(for="password2") Password Verification:
+              input(type="password" id="password2" size="30" maxlength="127" placeholder="Retype password for Verification" required oninput="checkPasswords()")
+            // URL
             li
-              input(type="button" value="Locate Me" onclick="getLocation()")
-              input(type="submit" value="Register")
+              label(for="homepage") Homepage URL (must start with http or https): 
+              input(id="homepage" name="url" type="url" placeholder="http://www.domain.com" pattern="(http|https)\:\/\/[a-zA-Z0-9\-\.\/]*")
+            li
+              input(type="submit" class="form_button" value="Register")
 
       
       script(src="/javascripts/password-validate.js")
+      script.
+        jQuery(function(){
+            jQuery('select.turn-to-ac').selectToAutocomplete();
+        }); 
+      script.
+        jQuery(function(){
+            jQuery('#country-selector').selectToAutocomplete();
+        }); 
       
       
