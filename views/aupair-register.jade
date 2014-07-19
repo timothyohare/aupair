@@ -40,7 +40,9 @@ html
 
             // Address  
             li
-                p(id="reverseGeolocation")
+                // From http://jsbin.com/ukogoq/26/edit
+                // https://developers.google.com/maps/documentation/geocoding/#ReverseGeocoding
+                p(id="reverseGeolocation") Location
                 div(id="mapholder")
                 p(id="myAddress") Prefill form with address details
                 input(type="button" class="form_button" value="Locate Me" onclick="getLocation()")
@@ -52,10 +54,9 @@ html
               label(for="address_city") City:
               input(type="text" id="address_city" size="30" maxlength="127" required)
             li
-              //- TODO - drop down list
-              //- label(for="address_country") Country:
-              //- input(type="text" id="address_country" size="30" maxlength="127" required)
-
+              label(for="address_state") State:
+              input(type="text" id="address_state" size="30" maxlength="127")
+            li
               // Country selection from http://www.smashingmagazine.com/2011/11/10/redesigning-the-country-selector/
               label(class="label" for="country-selector") Type your country:
     
