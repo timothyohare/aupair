@@ -22,16 +22,31 @@ router.get('/aupairs/search', function(req, res) {
 });
 
 // recevies the form post
-router.post('/test-page', function(req, res) {
+router.post('/aupairs/register', function(req, res) {
   console.log(req.body.firstname);
+  var getUsersInfo = new users({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password
+    });
+    getUsersInfo.save(function(err, userinfo) {
+        if(!err) {
+            req.session.user = userInfo;
+            res.redirect('/aupairs/ + userInfo.id');
+        }
+        else {
+            // Send error
+        }
+    });
 
-  // validate
+});
 
-
-  // save to database
-
-  // got to success page
-
+app.get('/aupairs/:userId', function(req, res) {
+    var user_id = req.param('userId');
+    users.findById(user_id, function(err, user) {
+        // user is available here. Add it to the template context and render it.
+    });
 });
 
 // testing

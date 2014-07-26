@@ -1,11 +1,3 @@
-//- Address print out works in jsbin
-//- TODO for assignment
-//-  - Country list <datalist>?
-//-  - Update address details with location
-//-  - fix CSS formating of fields - look at examples from course?
-//-  - add a place to upload a picture
-//-  - remove references to au pair
-
 doctype html
 html
     head
@@ -16,27 +8,26 @@ html
         script(src="/javascripts/jquery.js")
         script(src="/javascripts/jquery-ui-autocomplete.js")
         script(src="/javascripts/jquery.select-to-autocomplete.min.js")
-        script.
-
         script(src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false")
     body
       h1= title
       p Welcome to #{title}
       //- http://webdesign.tutsplus.com/tutorials/bring-your-forms-up-to-date-with-css3-and-html5-validation--webdesign-4738
-      form(method="post" action="/test-page" class="register_form" id="register_form")
+      // http://classroom.w3devcampus.com/mod/book/view.php?id=1674&chapterid=2315
+      form(method="post" action="/aupairs/register" class="register_form" id="register_form")
         fieldset
           ul
             li
               label(for="firstname") Name:
-              input(type="text" id="firstname" autofocus required placeholder="First name")
+              input(type="text" id="firstname" autofocus required placeholder="First name" onchange="sessionStorage.firstname=this.value")
               //- label(for="lastname") Last Name:
-              input(type="text" id="lastname" required placeholder="Last name")
+              input(type="text" id="lastname" required placeholder="Last name" onchange="sessionStorage.lastname=this.value")
             li
               label(for="email") Email:
-              input(type="email" id="email" placeholder="example@example.com" size="30" maxlength="127" required)
+              input(type="email" id="email" placeholder="example@example.com" size="30" maxlength="127" required onchange="sessionStorage.email=this.value")
             li
               label(for="phoneNumber") Phone Number:
-              input(type="tel" id="phoneNumber" size="30" maxlength="127" required)
+              input(type="tel" id="phoneNumber" size="30" maxlength="127" required onchange="sessionStorage.phoneNumber=this.value")
 
             // Address  
             li
@@ -49,18 +40,18 @@ html
 
             li
               label(for="address_street") Number and street:
-              input(type="text" id="address_street" size="30" maxlength="255" required)
+              input(type="text" id="address_street" size="30" maxlength="255" required onchange="sessionStorage.address_street=this.value")
             li
               label(for="address_city") City:
-              input(type="text" id="address_city" size="30" maxlength="127" required)
+              input(type="text" id="address_city" size="30" maxlength="127" required onchange="sessionStorage.address_city=this.value")
             li
               label(for="address_state") State:
-              input(type="text" id="address_state" size="30" maxlength="127")
+              input(type="text" id="address_state" size="30" maxlength="127" onchange="sessionStorage.address_state=this.value")
             li
               // Country selection from http://www.smashingmagazine.com/2011/11/10/redesigning-the-country-selector/
               label(class="label" for="country-selector") Type your country:
     
-              select(class="turn-to-ac" placeholder="Type your country" name="Country" id="country-selector" autocorrect="on" autocomplete="on")
+              select(class="turn-to-ac" placeholder="Type your country" name="Country" id="country-selector" autocorrect="on" autocomplete="on" onchange="sessionStorage.country-selector=this.value")
                 option(value="" selected="selected") Select Country
                 option(value="Afghanistan" data-alternative-spellings="AF")  Afghanistan
                 option(value="Åland Islands" data-alternative-spellings="AX Aaland Aland" data-relevancy-booster="0.5") Åland Islands
@@ -315,7 +306,7 @@ html
 
             li  
               label(for="address_postcode") Zip/Postcode:
-              input(type="text" id="address_postcode" size="30" maxlength="127" required)
+              input(type="text" id="address_postcode" size="30" maxlength="127" required onchange="sessionStorage.address_postcode=this.value")
 
             // Password
             li
@@ -326,11 +317,27 @@ html
             // URL
             li
               label(for="homepage") Homepage URL (must start with http or https): 
-              input(id="homepage" name="url" type="url" placeholder="http://www.domain.com" pattern="(http|https)\:\/\/[a-zA-Z0-9\-\.\/]*")
+              input(id="homepage" name="url" type="url" placeholder="http://www.domain.com" pattern="(http|https)\:\/\/[a-zA-Z0-9\-\.\/]*"  onchange="sessionStorage.homepage=this.value")
+            // A place for dropping files
+            li
+              // Note: the assoicated script uses a different form to Post to -> "upload.html" and it uses XHR2
+              div(id="droppableZone" class="dropzone" ondragenter="dragEnterHandler(event)" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)")
+                p Drop zone
+                ol(id="droppedFiles")
+
+              br
+              p Uploading progress: 
+              progress(id="progress" value="100%")
+              output(id="thumblist")
+            // The submit button
             li
               input(type="submit" class="form_button" value="Register")
 
-      
+
+
+
+
+      // Inline script      
       script(src="/javascripts/password-validate.js")
       script.
         jQuery(function(){
@@ -339,6 +346,21 @@ html
       script.
         jQuery(function(){
             jQuery('#country-selector').selectToAutocomplete();
-        }); 
+        });
+
+      // Restore the form settings from sessionStorage
+      script.
+        if(typeof sessionStorage!='undefined') {
+            formInputs = ['firstname', 'lastname', 'email', 'phoneNumber', 'address_street', 'address_city', 'address_state',
+                          'country-selector', 'address_postcode', 'homepage']
+            formInputs.forEach(function(formInput) {
+               if(formInput in sessionStorage) {
+                    document.getElementById(formInput).value = sessionStorage.getItem(formInput);
+                    console.log("Retrieved " + formInput + " sessionStorage");
+                }
+            });
+        } else {
+            alert("sessionStorage is not supported by your browser");
+        }
       
       
